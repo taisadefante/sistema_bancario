@@ -7,6 +7,7 @@ app.use(express.json());
 
 const customers = [];
 
+// cadastrar
 app.post("/account", (req, res) => {
   const { cpf, name } = req.body;
 
@@ -26,6 +27,15 @@ app.post("/account", (req, res) => {
   });
 
   return res.status(201).send();
+});
+
+//buscar extrato cliente
+app.get("/statement/:cpf", (req, res) => {
+  const { cpf } = req.params;
+
+  const customer = customers.find((customer) => customer.cpf === cpf);
+
+  return res.json(customer.statement);
 });
 
 app.listen(3000);
